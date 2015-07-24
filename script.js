@@ -22,37 +22,37 @@ $(document).ready(function() {
 // It is called after 'search' is executed.
 function searchCallback(results) {
     console.log(results);
-	var $el = $('body').children().last();
+	
 
     for (var i = 0; i < results.length; i++) {
-
+		var $el = $('body').children().last();
     	if (results) {
+    	var image = results[i].image.medium_url.replace(/\"/g, "");
+		$el.append("<div class='sortable'>" + results[i].name + "</div>" + "<button id='info'>Click for more info!</button>");
 
-		$('body').append("<div class='sortable'><button id='info'>Click for more info!</button>" + results[i].name + "</div>");
+		$el.append("<div class='img'>" + "<img src=\"" + image + "\" \/>" + "</div>");
+		
+		
 
-		for (var k=0; k < results[i].images.length; k++) {
+		$el.append("<div>" + '<p>' + 'Description: ' + results[i].deck + '</p>' + '<p>' + 'Release Date: ' + results[i].original_release_date + '</p>');
 
-			$('body').append("<p><img src='results[i].images[k].XXX)'></p>");
 
+		for (var j = 0; j < results[i].platforms.length; j++) {
+			$el.append('<p>' + 'Platform: ' + results[i].platforms[j].name + '</p>');
 		}
 
 		}
 		else  {
-		$('body').append("<div><p> 'No results found!'</p></div>");
+		$el.append("<div><p> 'No results found!'</p></div>");
 		}
 
 	}
-
-	$(this).on('click', '#info', function() {
-
-		$(this).append('<p>' + 'Description: ' + this.description + '</p>');
-			$(this).append('<p>' + 'Release Date: ' + this.original_release_date + '</p>');
+	// $('body').on('click', '#info', function() {
+	// 	$(this).parent().removeClass("hidden");
+	// });
 
 
-				for (var j = 0; j < this.platforms.length; j++) {
-			$(this).append('<p>' + 'Platform: ' + this.platforms[j].name + '</p>');
-		}
-	});
+
 
 
 }
